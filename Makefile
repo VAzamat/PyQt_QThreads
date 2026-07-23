@@ -24,3 +24,6 @@ start_stop:
 
 master_slave:
 	$(VENV_BIN)/python3 main_threads_master_slave.py
+
+queue:
+	$(VENV_BIN)/python3 main_threads_queue.py
