@@ -45,6 +45,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.qpbuttonThreadStart.setEnabled(True)
         self.statusBar().showMessage(f"Завершен процесс сканирования")
 
+    def closeEvent(self, event):
+        if hasattr(self, 'mythread') and self.mythread.isRunning():
+            self.mythread.running = False
+            self.mythread.wait(10000) # 10sec
+        event.accept()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
