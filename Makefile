@@ -21,3 +21,6 @@ clean:
 
 start_stop:
 	$(VENV_BIN)/python3 main_start_stop.py
+
+master_slave:
+	$(VENV_BIN)/python3 main_threads_master_slave.py
