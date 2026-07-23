@@ -19,5 +19,5 @@ clean:
 	@echo "Удаление сгенерированных файлов интерфейса..."
 	rm -f $(PY_FILES)
 
-start:
-	$(VENV_BIN)/python3 main.py
+start_stop:
+	$(VENV_BIN)/python3 main_start_stop.py
