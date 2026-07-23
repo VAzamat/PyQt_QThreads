@@ -11,7 +11,7 @@ class ThreadMaster(QThread):
         self.count = 0
 
     def run(self):
-        self.exec_()
+        self.exec()
 
     def on_start(self):
         self.count += 1
@@ -24,7 +24,7 @@ class ThreadSlave(QThread):
         self.count = 0
 
     def run(self):
-        self.exec_()
+        self.exec()
 
     def on_change(self, i):
         i += 10
@@ -36,6 +36,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.qpbuttonThreadStart.setText("Start interaction")
+        self.qpbuttonThreadStop.setText("___")
 
 
         self.statusBar().showMessage(f"Запущены процессы ...")
@@ -50,6 +51,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_slave_update_signal(self, s):
         self.statusBar().showMessage(f"Текущий номер процесса {s}")
+
+    def closeEvent(self, event):
+        if hasattr(self, 'threadMaster') and self.threadMaster.isRunning():
+            self.threadMaster.exit()
+        if hasattr(self, 'threadSlave') and self.threadSlave.isRunning():
+            self.threadSlave.exit()
+        event.accept()
 
 
 if __name__ == "__main__":
